@@ -4,9 +4,11 @@ import Stage from './Stage';
 import Display from './Display';
 import Button from './Button';
 
+import { createStage } from '../utils/game-helpers';
+
 const Tetris = () => (
   <>
-    <Stage />
+    <Stage stage={createStage()} />
     <aside>
       <>
         <Display text="Score" />
