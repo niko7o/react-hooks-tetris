@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Button = ({ callback, text }) => (
-    <div>{text}</div>
+  <div>{text}</div>
 );
 
 export default Button;
