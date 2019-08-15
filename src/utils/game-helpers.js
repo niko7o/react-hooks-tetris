@@ -1,3 +1,5 @@
+import { TETROMINOS } from './tetrominos';
+
 export const STAGE_WIDTH = 12;
 export const STAGE_HEIGHT = 20;
 
@@ -10,5 +12,8 @@ export const createStage = () =>
         new Array(STAGE_WIDTH).fill([0, 'clear'])
     );
 
-export const randomTetromino = () =>
-    Math.floor(Math.random() * 'JOLSITZ'.length);
+export const randomTetromino = () => {
+    const tetrominos = 'IJLOSTZ';
+    const randTetromino = tetrominos[Math.floor(Math.random() * tetrominos.length)];
+    return TETROMINOS[randTetromino];
+}
