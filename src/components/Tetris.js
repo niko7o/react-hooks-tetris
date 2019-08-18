@@ -11,6 +11,7 @@ import { StyledTetris, StyledTetrisWrapper } from './styles/StyledTetris';
 // Hooks
 import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
+import { useInterval } from '../hooks/useInterval';
 
 // Utils
 import { createStage, checkCollision } from '../utils/stage';
@@ -31,6 +32,7 @@ const Tetris = () => {
   const startGame = () => {
     setStage(createStage());
     setGameover(false);
+    setDroptime(500);
     resetPlayer();
   }
 
@@ -53,11 +55,15 @@ const Tetris = () => {
   const move = ({ keyCode: key }) => {
     if (!gameover) {
       if (key === 37) movePlayer(-1);
-      if (key === 82) playerRotate(stage, 1);
-      if (key === 39) movePlayer(1);
-      if (key === 40) dropPlayer();
+      else if (key === 82) playerRotate(stage, 1);
+      else if (key === 39) movePlayer(1);
+      else if (key === 40) dropPlayer();
     }
   }
+
+  useInterval(() => {
+    drop();
+  }, dropTime);
 
   /* 
    * Our StyledTetrisWrapper is responsible for handling all the
