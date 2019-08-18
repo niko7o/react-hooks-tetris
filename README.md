@@ -1,4 +1,4 @@
-## React Tetris Hooks
+## React Hooks Tetris
 
 Work in progress.
 
