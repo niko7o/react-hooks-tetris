@@ -2,8 +2,8 @@ import React from 'react';
 
 import { StyledButton } from './styles/StyledButton';
 
-const Button = ({ onClickAction, text }) => (
-  <StyledButton onClick={onClickAction}>
+const Button = ({ action, text }) => (
+  <StyledButton onClick={action}>
     {text}
   </StyledButton>
 );

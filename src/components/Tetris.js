@@ -13,22 +13,25 @@ import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
 
 // Utils
-import { createStage } from '../utils/game-helpers';
+import { createStage } from '../utils/stage';
 
 const Tetris = () => {
   const [dropTime, setDroptime] = useState(null);
   const [gameover, setGameover] = useState(false);
 
   const [player, updatePlayerPos, resetPlayer] = usePlayer();
-  const [stage, setStage] = useStage(player);
+  const [stage, setStage] = useStage(player, resetPlayer);
 
-  const movePlayer = dir => {
-    updatePlayerPos({ x: dir, y: 0 });
+  const movePlayer = direction => {
+    updatePlayerPos({ 
+      x: direction, 
+      y: 0 
+    });
   }
 
   const startGame = () => {
-    console.log('Starting Game')
     setStage(createStage());
+    setGameover(false);
     resetPlayer();
   }
 
@@ -54,8 +57,6 @@ const Tetris = () => {
     }
   }
 
-  console.log('Tetris re-renders');
-
   /* 
    * Our StyledTetrisWrapper is responsible for handling all the
    * keyboard events. Without this component, the user would have
@@ -63,19 +64,23 @@ const Tetris = () => {
   */ 
 
   return (
-    <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)}>
+    <StyledTetrisWrapper 
+      role="button" 
+      tabIndex="0" 
+      onKeyDown={e => move(e)}
+    >
       <StyledTetris>
-        <Stage stage={createStage()} />
+        <Stage stage={stage} />
         <aside>
           {gameover
           ? <Display gameover={gameover} text="Game over" />
           : <div>
-            <Display text="Level" />
-            <Display text="Score" />
-            <Display text="Lines broken" />
-          </div>
+              <Display text="Level" />
+              <Display text="Score" />
+              <Display text="Lines broken" />
+            </div>
           }
-          <Button text="Let's start" onClickAction={startGame}/>
+          <Button text="Play Tetris" action={startGame}/>
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>
