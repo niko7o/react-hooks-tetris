@@ -13,7 +13,7 @@ import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
 
 // Utils
-import { createStage } from '../utils/stage';
+import { createStage, checkCollision } from '../utils/stage';
 
 const Tetris = () => {
   const [dropTime, setDroptime] = useState(null);
@@ -23,10 +23,9 @@ const Tetris = () => {
   const [stage, setStage] = useStage(player, resetPlayer);
 
   const movePlayer = direction => {
-    updatePlayerPos({ 
-      x: direction, 
-      y: 0 
-    });
+    if(!checkCollision(player, stage, { x: direction, y: 0 })) {
+      updatePlayerPos({ x: direction, y: 0 });
+    }
   }
 
   const startGame = () => {
@@ -36,11 +35,15 @@ const Tetris = () => {
   }
 
   const drop = () => {
-    updatePlayerPos({ 
-      x: 0, 
-      y: 1, 
-      collided: false 
-    })
+    if (!checkCollision(player, stage, { x: 0, y: 1 })) {
+      updatePlayerPos({ x: 0, y: 1, collided: false });
+    } else {
+      if(player.pos.y < 1) {
+        setGameover(true);
+        setDroptime(null);
+      }
+      updatePlayerPos({ x: 0, y: 0, collided: true });
+    }
   }
 
   const dropPlayer = () => {
@@ -49,11 +52,9 @@ const Tetris = () => {
 
   const move = ({ keyCode: key }) => {
     if (!gameover) {
-      switch (key) {
-        case 37: movePlayer(-1); // Left
-        case 39: movePlayer(1); // Right
-        case 40: dropPlayer(); // Down
-      }
+      if(key === 37) movePlayer(-1);
+      if(key === 39) movePlayer(1);
+      if(key === 40) dropPlayer();
     }
   }
 
@@ -70,8 +71,7 @@ const Tetris = () => {
       onKeyDown={e => move(e)}
     >
       <StyledTetris>
-        <Stage stage={stage} />
-        <aside>
+      <aside>
           {gameover
           ? <Display gameover={gameover} text="Game over" />
           : <div>
@@ -82,6 +82,7 @@ const Tetris = () => {
           }
           <Button text="Play Tetris" action={startGame}/>
         </aside>
+        <Stage stage={stage} />
       </StyledTetris>
     </StyledTetrisWrapper>
   );

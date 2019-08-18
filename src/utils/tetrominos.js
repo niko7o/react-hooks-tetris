@@ -34,8 +34,8 @@ export const ALL_TETROMINOS = {
 };
 
 export const randomTetromino = () => {
-  const possibleTetrominos = 'IJLOSTZ';
-  const randomTetromino = possibleTetrominos[Math.floor(Math.random() * possibleTetrominos.length)];
-  
-  return ALL_TETROMINOS[randomTetromino];
+  const tetrominos = 'IJLOSTZ';
+  const randTetromino =
+    tetrominos[Math.floor(Math.random() * tetrominos.length)];
+  return ALL_TETROMINOS[randTetromino];
 };
