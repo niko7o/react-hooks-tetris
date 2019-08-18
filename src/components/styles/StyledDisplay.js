@@ -4,14 +4,13 @@ export const StyledDisplay = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    padding: 20px;
-    border: 4px solid #333;
-    border-radius: 20px;
+    padding: 16px 14px;
+    border: 1px solid #333;
     min-height: 30px;
     width: 100%;
     box-sizing: border-box;
     color: ${props => (props.gameOver ? '#F00' : '#999')};
-    background: #000;
+    background: #FFF;
     font-family: Pixel, san-serif;
-    font-size: 1rem;
+    font-size: .8rem;
 `

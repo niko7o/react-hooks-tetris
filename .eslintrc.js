@@ -24,7 +24,8 @@ module.exports = {
     'react/jsx-filename-extension': [1, { "extensions": [".js", ".jsx"] }],
     'no-array-constructor': 0,
     'implicit-arrow-linebreak': 0,
-    'react/no-array-index-key': 0
+    'react/no-array-index-key': 0,
+    'import/prefer-default-export': 0
   },
 };
 
