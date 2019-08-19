@@ -6,7 +6,7 @@ import { ALL_TETROMINOS } from '../utils/tetrominos';
 const Cell = ({ type }) =>
   <StyledCell 
     type={type} 
-    color={ALL_TETROMINOS[type].color} 
+    color={ALL_TETROMINOS[type].color}
   />;
   
 
